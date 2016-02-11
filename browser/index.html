@@ -21,6 +21,7 @@
     <script src="/js/playlist/playlist.states.js" defer></script>
     <script src="/js/playlist/playlist.controller.js" defer></script>
     <script src="/js/playlist/playlist.factory.js" defer></script>
+    <script src="/js/playlist/single-playlist.controller.js" defer></script>
   </head>
   <body ng-app="juke">
     <div id="main" class="container-fluid">
@@ -41,6 +42,9 @@
           <hr>
           <section>
             <h4 class="text-muted">PLAYLISTS</h4>
+            <p class="playlist-item">
+              <a ng-repeat="playlist in playlists" ui-sref="singlePlaylist({playlistID: playlist._id})">{{playlist.name}}<br></a>
+            </p>
             <p>
               <a class="btn btn-primary btn-block" ui-sref="newPlaylist"><span class="glyphicon glyphicon-plus"></span> PLAYLIST</a>
             </p>

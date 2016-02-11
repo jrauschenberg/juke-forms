@@ -1,14 +1,14 @@
 <div>
   <h3>Playlists</h3>
     <form name="newPlaylist" novalidate>
-    <input type="text" name="name" ng-model="search" ng-maxlength="16" required/>
-    <span ng-show="newPlaylist.$dirty && newPlaylist.$invalid"class="alert alert-warning">Please enter a name.</span>
+    <input type="text" name="name" ng-model="playlist.name" ng-maxlength="16" required/>
+    <span ng-show="newPlaylist.$dirty && newPlaylist.$invalid" class="alert alert-warning">Please enter a name.</span>
     <div class="list-group">
-      <p>{{newPlaylist | json}}</p>
+      <p>{{playlist | json}}</p>
       <div class="list-group-item" ng-repeat="artist in artists | filter: {name: search}">
       <a ui-sref="artist({artistId: artist._id})">{{ artist.name }}</a>
     </div>
-    <input type="submit" ng-click="submit({name: newPlaylist.$name})" ng-disabled="newPlaylist.$invalid"/>  
+    <input type="submit" ng-click="submit()" ng-disabled="newPlaylist.$invalid"/>  
     </div>
   </form>
 </div>
