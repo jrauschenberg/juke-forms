@@ -3,7 +3,7 @@
 juke.config(function ($stateProvider) {
 
   $stateProvider.state('newPlaylist', {
-    url: '/playlist',
+    url: '/playlists',
     templateUrl: '/js/playlist/templates/playlist.html',
     controller: 'PlaylistCtrl',
   })

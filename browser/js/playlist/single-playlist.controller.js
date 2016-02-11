@@ -1,8 +1,20 @@
 'use strict';
 
-juke.controller('SinglePlaylistCtrl', function ($scope, $state, theID, PlayerFactory) {
+juke.controller('SinglePlaylistCtrl', function ($scope, SongFactory, $state, theID, PlayerFactory) {
 
-  $scope.currentPlaylist = theID;
+  $scope.playlist = theID;
+
+  SongFactory.getAllSongs()
+  .then(function(result) {
+    $scope.songs = result;
+  });
+
+  $scope.addSong = function(song) {
+    SongFactory.addSong(song, $scope.playlist._id)
+    .then(function(result) {
+      $scope.playlist.songs.push(result);
+    });
+  };
 
   $scope.toggle = function (song) {
     if (song !== PlayerFactory.getCurrentSong()) {

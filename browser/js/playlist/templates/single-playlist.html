@@ -24,4 +24,10 @@
   </table>
   <small ng-hide="playlist.songs.length">No songs.</small>
   <hr>
+  <div>
+  <form name="addSong">
+  <h3>Add to Playlist</h3>
+  <select ng-options="song.name for song in songs" ng-model="selections" required>
+  <input type="submit" ng-click="addSong(song)" ng-disabled="addSong.$invalid"/>
+  </div>
 </div>
