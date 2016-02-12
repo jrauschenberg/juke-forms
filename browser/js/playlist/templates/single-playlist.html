@@ -27,7 +27,7 @@
   <div>
   <form name="addSong">
   <h3>Add to Playlist</h3>
-  <select ng-options="song.name for song in songs" ng-model="selections" required>
-  <input type="submit" ng-click="addSong(song)" ng-disabled="addSong.$invalid"/>
+  <select ng-options="song.name for song in songs" ng-model="selection" required></select>
+  <input type="submit" ng-click="addCurrentSong()" />
   </div>
 </div>

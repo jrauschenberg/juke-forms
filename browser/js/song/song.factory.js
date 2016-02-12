@@ -10,7 +10,7 @@ juke.factory('SongFactory', function ($http) {
       });
     },
     addSong: function(song, playlistID) {
-      return $http.post('api/' + playlistID + '/songs', {song: song})
+      return $http.post('api/playlists/' + playlistID + '/songs', {song: song})
       .then(function(result) {
         return result.data;
       });
