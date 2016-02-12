@@ -1,33 +1,49 @@
 <div>
-  <h3>{{ playlist.name }}</h3>
-  <table class='table' ng-show="playlist.songs.length">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Name</th>
-        <th>Artists</th>
-        <th>Genres</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="song in playlist.songs" ng-class="{active: song === getCurrentSong() }">
-        <td>
-          <button class="btn btn-default btn-xs" ng-click="toggle(song)">
-            <span class="glyphicon" ng-class="{ 'glyphicon-pause': isPlaying(song), 'glyphicon-play': !isPlaying(song) }"></span>
-          </button>
-        </td>
-        <td>{{ song.name }}</td>
-        <td><span ng-repeat="artist in song.artists">{{ artist.name }}{{ $last ? '' : ', ' }}</span></td>
-        <td>{{ song.genres.join(', ') }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <small ng-hide="playlist.songs.length">No songs.</small>
-  <hr>
-  <div>
-  <form name="addSong">
-  <h3>Add to Playlist</h3>
-  <select ng-options="song.name for song in songs" ng-model="selection" required></select>
-  <input type="submit" ng-click="addCurrentSong()" />
-  </div>
+    <script type="text/ng-template" id="customTemplate.html">
+        <a>
+            <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+        </a>
+    </script>
+    <script type="text/ng-template" id="customPopupTemplate.html">
+        <div class="custom-popup-wrapper" ng-style="{top: position().top+'px', left: position().left+'px'}" style="display: block;" ng-show="isOpen() && !moveInProgress" aria-hidden="{{!isOpen()}}">
+            <p class="message">select location from drop down.</p>
+            <ul class="dropdown-menu" role="listbox">
+                <li ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{::match.id}}">
+                    <div uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+                </li>
+            </ul>
+        </div>
+    </script>
+    <h3>{{ playlist.name }}</h3>
+    <table class='table' ng-show="playlist.songs.length">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Artists</th>
+                <th>Genres</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="song in playlist.songs" ng-class="{active: song === getCurrentSong() }">
+                <td>
+                    <button class="btn btn-default btn-xs" ng-click="toggle(song)">
+                        <span class="glyphicon" ng-class="{ 'glyphicon-pause': isPlaying(song), 'glyphicon-play': !isPlaying(song) }"></span>
+                    </button>
+                </td>
+                <td>{{ song.name }}</td>
+                <td><span ng-repeat="artist in song.artists">{{ artist.name }}{{ $last ? '' : ', ' }}</span></td>
+                <td>{{ song.genres.join(', ') }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <small ng-hide="playlist.songs.length">No songs.</small>
+    <hr>
+    <div>
+        <form name="addSong">
+            <h3>Add to Playlist</h3>
+            <!--  <select ng-options="song.name for song in songs" ng-model="selection" required></select> -->
+            <input ng-model="selection" type="text" uib-typeahead="song.name for song in songs | filter: $viewValue " />
+            <input type="submit" ng-click="addCurrentSong()" />
+    </div>
 </div>

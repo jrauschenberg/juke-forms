@@ -10,8 +10,11 @@ juke.controller('SinglePlaylistCtrl', function ($scope, SongFactory, $state, the
   });
 
   $scope.addCurrentSong = function() {
-    console.log('addSong runs');
-    SongFactory.addSong(newsong, $scope.playlist._id)
+    console.log('addSong runs', $scope.selection);
+    $scope.songs.forEach(function(song){
+      if(song.name == $scope.selection) $scope.selection = song;
+    });
+    SongFactory.addSong($scope.selection, $scope.playlist._id)
     .then(function(result) {
       $scope.playlist.songs.push(result);
     });
